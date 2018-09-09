@@ -1,5 +1,6 @@
 package br.ifam.bean;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,6 +8,7 @@ import javax.persistence.Id;
 public class Paciente {
 
 	@Id
+	@Column(name="paccodigo")
 	private long numSUS;
 	private String pressao;
 	private double peso;
@@ -27,7 +29,6 @@ public class Paciente {
 	}
 
 	public Paciente() {}
-	
 	
 	public long getNumSUS() {
 		return numSUS;

@@ -4,11 +4,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -16,6 +15,7 @@ import javax.persistence.TemporalType;
 public class Usuario {
 
 	@Id@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column (name = "usucodigo")
 	private Long codigo;
 	private String nome;
 	private String email;
@@ -25,31 +25,19 @@ public class Usuario {
 	private Date dtNascimento;
 	@Temporal (TemporalType.TIMESTAMP)
 	private Date dtCadastro;
-	private SegurancaUser user;
-	@Enumerated(EnumType.STRING)
-	@Column(name="TipoUsuario")
-	private ETipoUsuario tipo;
+	
 	
 	public Usuario() {
 	
 	}
 	
-	public Usuario(String nome, String email, String rg, String cpf, Date dtNascimento, Date dtCadastro, String login, String senha) {
+	public Usuario(String nome, String email, String rg, String cpf, Date dtNascimento, Date dtCadastro) {
 		this.nome = nome;
 		this.email = email;
 		this.rg = rg;
 		this.cpf = cpf;
 		this.dtNascimento = dtNascimento;
 		this.dtCadastro = dtCadastro;
-		this.user = new SegurancaUser(login, senha);
-	}
-		
-	public SegurancaUser getUser() {
-		return user;
-	}
-
-	public void setUser(SegurancaUser user) {
-		this.user = user;
 	}
 
 	public Long getCodigo() {
