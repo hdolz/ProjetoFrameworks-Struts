@@ -4,24 +4,23 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import br.strutsweb.bean.Paciente;
 
-import br.strutsweb.bean.Vacina;
-
-public class VacinaDAO implements IinsertDAO<Vacina>{
+public class PacienteDAO implements IinsertDAO<Paciente>{
 
 	private final EntityManager entityManager;
 
-	public VacinaDAO(EntityManager entityManager) {
+	public PacienteDAO(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-
+	
 	@Override
-	public String salvar(Vacina dao) {
+	public String salvar(Paciente dao) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(dao);
 			entityManager.getTransaction().commit();
-			return "Vacina cadastra com sucesso!";
+			return "Paciente cadastra com sucesso!";
 		}catch (Exception e) {
 			entityManager.getTransaction().rollback();
 			System.err.println("Error -> "+e.getMessage());
@@ -30,31 +29,31 @@ public class VacinaDAO implements IinsertDAO<Vacina>{
 	}
 
 	@Override
-	public String excluir(Vacina dao) {
+	public String excluir(Paciente dao) {
 		try {
 			System.out.println("Excluindo a curso.");
 			entityManager.getTransaction().begin();
-			Vacina curso = this.item(dao);
+			Paciente curso = this.item(dao);
 			entityManager.remove(curso);      
 			entityManager.getTransaction().commit();
 			return "Vacina excluido com sucesso!";
 		} catch(Exception e){
 			entityManager.getTransaction().rollback();
 		}
-		return "Erro ao excluir a vacina"+dao.getCodigo()+"!!";
+		return "Erro ao excluir a vacina"+dao.getNumSUS()+"!!";
 	}
 
 	@Override
-	public List<Vacina> listar(Vacina dao) {
-		List<Vacina> listaCursos = null;
+	public List<Paciente> listar(Paciente dao) {
+		List<Paciente> listaCursos = null;
 		try {
 			//monta consulta        
-			Query query = entityManager.createQuery("FROM Vacina "
-					+ "where vaccodigo = :codigo "
+			Query query = entityManager.createQuery("FROM Paciente "
+					+ "where paccodigo = :codigo "
 					+ "and nome LIKE :nome"
 					+ "order by nome");
-			query.setParameter("codigo", dao.getCodigo());
-			query.setParameter("nome", "%"+dao.getNome()+"%");
+			query.setParameter("codigo", dao.getNumSUS());
+			query.setParameter("nome", "%"+dao.getUsuario().getNome()+"%");
 
 			listaCursos = query.getResultList();
 
@@ -65,14 +64,15 @@ public class VacinaDAO implements IinsertDAO<Vacina>{
 	}
 
 	@Override
-	public Vacina item(Vacina dao) {
-		Vacina vacina = null;
+	public Paciente item(Paciente dao) {
+		Paciente paciente = null;
 		try {
 			//Consulta curso pelo id
-			vacina = entityManager.find(Vacina.class, dao.getCodigo());
+			paciente = entityManager.find(Paciente.class, dao.getNumSUS());
 		} catch(Exception e){
 			entityManager.getTransaction().rollback();
 		}
-		return vacina;
+		return paciente;
 	}
+
 }
