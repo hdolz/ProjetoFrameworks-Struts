@@ -1,4 +1,4 @@
-package br.ifam.bean;
+package br.strutsweb.bean;
 
 import java.util.Date;
 
@@ -7,13 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-public class Usuario {
+import org.apache.struts.action.ActionForm;
 
+@Entity
+public class Usuario extends ActionForm{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column (name = "usucodigo")
 	private Long codigo;

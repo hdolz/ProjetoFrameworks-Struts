@@ -1,12 +1,18 @@
-package br.ifam.bean;
+package br.strutsweb.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
-public class Paciente {
+import org.apache.struts.action.ActionForm;
 
+@Entity
+public class Paciente extends ActionForm{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name="paccodigo")
 	private long numSUS;

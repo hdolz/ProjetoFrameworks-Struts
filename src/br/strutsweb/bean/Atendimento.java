@@ -1,11 +1,17 @@
-package br.ifam.bean;
+package br.strutsweb.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 
-@Entity
-public class Atendimento {
+import org.apache.struts.action.ActionForm;
 
+@Entity
+public class Atendimento extends ActionForm{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@JoinColumn(name = "vaccodigo")
 	private Vacina vacina;
 	@JoinColumn(name = "paccodigo")
