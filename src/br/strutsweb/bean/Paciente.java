@@ -3,6 +3,8 @@ package br.strutsweb.bean;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import org.apache.struts.action.ActionForm;
 
@@ -18,6 +20,8 @@ public class Paciente extends ActionForm{
 	private long numSUS;
 	private String pressao;
 	private double peso;
+	@OneToOne
+	@JoinColumn(name = "usucodigo")
 	private Usuario usuario;
 		
 	public Paciente(long numSUS, String pressao, double peso, Usuario usuario) {
