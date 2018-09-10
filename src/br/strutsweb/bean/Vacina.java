@@ -1,4 +1,4 @@
-package br.ifam.bean;
+package br.strutsweb.bean;
 
 import java.util.Date;
 
@@ -8,9 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-public class Vacina {
+import org.apache.struts.action.ActionForm;
 
+@Entity
+public class Vacina extends ActionForm{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "vaccodigo")

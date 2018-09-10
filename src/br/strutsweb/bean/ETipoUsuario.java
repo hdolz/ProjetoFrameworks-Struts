@@ -1,4 +1,4 @@
-package br.ifam.bean;
+package br.strutsweb.bean;
 
 public enum ETipoUsuario {
 	Atendente,Administrador

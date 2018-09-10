@@ -1,4 +1,4 @@
-package br.ifam.bean;
+package br.strutsweb.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -7,9 +7,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-@Embeddable 
-public class SegurancaUser {
+import org.apache.struts.action.ActionForm;
 
+@Embeddable 
+public class SegurancaUser extends ActionForm{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String login;
 	private String senha;
 	@Enumerated(EnumType.STRING)
