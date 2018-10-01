@@ -1,69 +1,69 @@
 package br.strutsweb.dao;
 
 import java.util.List;
-
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import org.hibernate.Session;
+
 import br.strutsweb.bean.Atendimento;
+import br.strutsweb.util.ConnectionFactory;
+import br.strutsweb.util.IinsertDAO;
 
-public class AtendimentoDAO implements IinsertDAO<Atendimento> {
+public class AtendimentoDAO extends ConnectionFactory  implements IinsertDAO<Atendimento> {
 
-	private final EntityManager entityManager;
+	private final Session session;
 	
-	public AtendimentoDAO(EntityManager entityManager) {
-		this.entityManager = entityManager;
+	public AtendimentoDAO() {
+		this.session = ConnectionFactory.getSessionFactory().getCurrentSession();
 	}
 	
-	@Override
 	public String salvar(Atendimento dao) {
 		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(dao);
-			entityManager.getTransaction().commit();
+			session.beginTransaction();
+			session.save(dao);
+			session.getTransaction().commit();
 			return "Atendimento cadastra com sucesso!";
 		}catch (Exception e) {
-			entityManager.getTransaction().rollback();
+			session.getTransaction().rollback();
 			System.err.println("Error -> "+e.getMessage());
 		}
 		return null;
 	}
 
-	@Override
 	public String excluir(Atendimento dao) {
 		try {
 			System.out.println("Excluindo a curso.");
-			entityManager.getTransaction().begin();
-			Atendimento atendimento = this.item(dao);
-			entityManager.remove(atendimento);      
-			entityManager.getTransaction().commit();
-			return "Vacina excluido com sucesso!";
+			session.beginTransaction();
+			session.remove(dao);      
+			session.getTransaction().commit();
+			return "Atendimento excluido com sucesso!";
 		} catch(Exception e){
-			entityManager.getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 		return "Erro ao excluir o atendimento!!";
 	}
 
-	@Override
 	public List<Atendimento> listar(Atendimento dao) {
 		List<Atendimento> listaCursos = null;
+		session.beginTransaction();
 		try {
 			//monta consulta        
-			Query query = entityManager.createQuery("FROM Atendimento");
+			Query query = session.createQuery("FROM Atendimento");
 			listaCursos = query.getResultList();
+			session.getTransaction().commit();
 		} catch(Exception e){
-			entityManager.getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 		return listaCursos;
 	}
 
-	@Override
 	public Atendimento item(Atendimento dao) {
 		Atendimento atendimento = null;
 		try {
 			//Consulta curso pelo id
-			atendimento = entityManager.find(Atendimento.class, dao.getCodigo());
+			atendimento = session.find(Atendimento.class, dao.getCodigo());
 		} catch(Exception e){
-			entityManager.getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 		return atendimento;
 	}

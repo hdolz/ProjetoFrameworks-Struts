@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.strutsweb.bean.Vacina;
+import br.strutsweb.util.IinsertDAO;
 
 public class VacinaDAO implements IinsertDAO<Vacina>{
 
@@ -15,7 +16,7 @@ public class VacinaDAO implements IinsertDAO<Vacina>{
 		this.entityManager = entityManager;
 	}
 
-	@Override
+	
 	public String salvar(Vacina dao) {
 		try {
 			entityManager.getTransaction().begin();
@@ -29,7 +30,7 @@ public class VacinaDAO implements IinsertDAO<Vacina>{
 		return null;
 	}
 
-	@Override
+	
 	public String excluir(Vacina dao) {
 		try {
 			System.out.println("Excluindo a curso.");
@@ -44,7 +45,7 @@ public class VacinaDAO implements IinsertDAO<Vacina>{
 		return "Erro ao excluir a vacina"+dao.getCodigo()+"!!";
 	}
 
-	@Override
+	
 	public List<Vacina> listar(Vacina dao) {
 		List<Vacina> listaCursos = null;
 		try {
@@ -64,7 +65,7 @@ public class VacinaDAO implements IinsertDAO<Vacina>{
 		return listaCursos;
 	}
 
-	@Override
+	
 	public Vacina item(Vacina dao) {
 		Vacina vacina = null;
 		try {
