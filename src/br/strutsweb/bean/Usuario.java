@@ -1,7 +1,7 @@
 package br.strutsweb.bean;
 
+import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,18 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.apache.struts.action.ActionForm;
-
 @Entity
-public class Usuario extends ActionForm{
+public class Usuario implements Serializable {
 
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column (name = "usucodigo")
-	private Long codigo;
+	private int codigo;
 	private String nome;
 	private String email;
 	private String rg;
@@ -45,12 +44,15 @@ public class Usuario extends ActionForm{
 		this.dtCadastro = dtCadastro;
 	}
 
-	public Long getCodigo() {
+
+	public int getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(Long codigo) {
+
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
+
 	public String getNome() {
 		return nome;
 	}

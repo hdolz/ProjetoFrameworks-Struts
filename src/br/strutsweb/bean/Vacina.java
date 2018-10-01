@@ -1,17 +1,16 @@
 package br.strutsweb.bean;
 
+import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.apache.struts.action.ActionForm;
 
 @Entity
-public class Vacina extends ActionForm{
+public class Vacina implements Serializable {
 
 	/**
 	 * 
@@ -31,6 +30,9 @@ public class Vacina extends ActionForm{
 		this.descricao = descricao;
 		this.lote = lote;
 		this.validade = validade;
+	}
+
+	public Vacina() {
 	}
 
 	public long getCodigo() {

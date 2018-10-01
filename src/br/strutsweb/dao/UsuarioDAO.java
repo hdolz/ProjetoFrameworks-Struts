@@ -1,56 +1,54 @@
 package br.strutsweb.dao;
 
 import java.util.List;
-
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
-
+import org.hibernate.Session;
 import br.strutsweb.bean.Usuario;
-import br.strutsweb.bean.Vacina;
+import br.strutsweb.util.ConnectionFactory;
+import br.strutsweb.util.IinsertDAO;
 
 public class UsuarioDAO implements IinsertDAO<Usuario>{
 
-	private final EntityManager entityManager;
+	private Session session;
 
-	public UsuarioDAO(EntityManager entityManager) {
-		this.entityManager = entityManager;
+	public UsuarioDAO() {
+		this.session = ConnectionFactory.getSessionFactory().getCurrentSession();
 	}
 	
-	@Override
+	
 	public String salvar(Usuario dao) {
 		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(dao);
-			entityManager.getTransaction().commit();
+			session.beginTransaction();
+			session.persist(dao);
+			session.getTransaction().commit();
 			return "Usuario cadastra com sucesso!";
 		}catch (Exception e) {
-			entityManager.getTransaction().rollback();
+			session.getTransaction().rollback();
 			System.err.println("Error -> "+e.getMessage());
 		}
 		return null;
 	}
 
-	@Override
+	
 	public String excluir(Usuario dao) {
 		try {
 			System.out.println("Excluindo a usuario.");
-			entityManager.getTransaction().begin();
-			Usuario usuario = this.item(dao);
-			entityManager.remove(usuario);      
-			entityManager.getTransaction().commit();
+			session.beginTransaction();
+			session.remove(dao);      
+			session.getTransaction().commit();
 			return "Usuario excluido com sucesso!";
 		} catch(Exception e){
-			entityManager.getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 		return "Erro ao excluir a usuario"+dao.getCodigo()+"!!";
 	}
 
-	@Override
+	
 	public List<Usuario> listar(Usuario dao) {
 		List<Usuario> lista = null;
 		try {
 			//monta consulta        
-			Query query = entityManager.createQuery("FROM Usuario "
+			Query query = session.createQuery("FROM Usuario "
 					+ "where usucodigo = :codigo "
 					+ "and nome LIKE :nome"
 					+ "order by nome");
@@ -60,19 +58,19 @@ public class UsuarioDAO implements IinsertDAO<Usuario>{
 			lista = query.getResultList();
 
 		} catch(Exception e){
-			entityManager.getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 		return lista;
 	}
 
-	@Override
+	
 	public Usuario item(Usuario dao) {
 		Usuario usuario = null;
 		try {
 			//Consulta curso pelo id
-			usuario = entityManager.find(Usuario.class, dao.getCodigo());
+			usuario = session.find(Usuario.class, dao.getCodigo());
 		} catch(Exception e){
-			entityManager.getTransaction().rollback();
+			session.getTransaction().rollback();
 		}
 		return usuario;
 	}

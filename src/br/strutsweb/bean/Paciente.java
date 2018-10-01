@@ -1,15 +1,17 @@
 package br.strutsweb.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import org.apache.struts.action.ActionForm;
 
 @Entity
-public class Paciente extends ActionForm{
+public class Paciente implements Serializable {
+
 
 	/**
 	 * 

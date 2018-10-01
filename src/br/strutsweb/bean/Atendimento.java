@@ -1,16 +1,20 @@
 package br.strutsweb.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
-import org.apache.struts.action.ActionForm;
 
 @Entity
-public class Atendimento extends ActionForm{
+public class Atendimento implements Serializable {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long codigo;
@@ -27,6 +31,10 @@ public class Atendimento extends ActionForm{
 		this.usuario = usuario;
 	}
 	
+	public Atendimento() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getCodigo() {
 		return codigo;
 	}
