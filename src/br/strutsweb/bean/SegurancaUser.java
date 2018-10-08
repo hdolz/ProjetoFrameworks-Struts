@@ -8,9 +8,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import br.strutsweb.util.ETipoUsuario;
 
 @Entity
+@Table(name="SegurancaUser")
 public class SegurancaUser implements Serializable {
 
 	/**
@@ -18,13 +21,16 @@ public class SegurancaUser implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name="login")
 	private String login;
+	@Column(name="senha")
 	private String senha;
 	@Enumerated(EnumType.STRING)
 	@Column(name="TipoUsuario")
 	private ETipoUsuario tipo;
 	@OneToOne
 	@JoinColumn(name = "usucodigo")
+	@Column(name="segusucodigo")
 	private Usuario usuario;
 
 	public SegurancaUser(String login, String senha) {

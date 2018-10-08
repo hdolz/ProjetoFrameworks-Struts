@@ -63,7 +63,7 @@
 			<p>
 
 				<s:label  value="Email" />
-				<s:textfield type="email" name="user.login" cssClass="form-control" />
+				<s:textfield type="text" name="user.login" cssClass="form-control" />
 				<br>
 				<s:label value="Senha" />
 				<s:password name="user.senha" cssClass="form-control" />

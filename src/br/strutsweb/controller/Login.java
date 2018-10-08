@@ -23,7 +23,7 @@ public class Login extends ActionSupport{
 	public String validar() {
 		System.out.println(getUser().getLogin());
 		try {
-			if(getUser().getLogin() != null) {			
+			if(dao.item(getUser()) != null) {			
 				return "success";
 			}else
 				return "error";
